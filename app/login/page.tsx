@@ -20,6 +20,7 @@ export default function LoginPage() {
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +34,12 @@ function LoginForm() {
         emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
       },
     });
-    setStatus(error ? "error" : "sent");
+    if (error) {
+      setErrorMessage(error.message);
+      setStatus("error");
+    } else {
+      setStatus("sent");
+    }
   }
 
   if (status === "sent") {
@@ -60,7 +66,7 @@ function LoginForm() {
         {status === "sending" ? "sending…" : "send me a link"}
       </Button>
       {status === "error" ? (
-        <p className="text-sm text-red-700">something went wrong — try again in a moment.</p>
+        <p className="text-sm text-red-700">{errorMessage || "something went wrong — try again in a moment."}</p>
       ) : null}
     </form>
   );

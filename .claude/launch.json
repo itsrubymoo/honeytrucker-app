@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "honeytrucker-app-dev",
+      "runtimeExecutable": "/Users/rubychandler/.nvm/versions/node/v24.21.0/bin/npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    }
+  ]
+}
